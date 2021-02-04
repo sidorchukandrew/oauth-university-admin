@@ -41,7 +41,7 @@ function Structure() {
                     >
                         <SideNavigation />
                     </Drawer>
-                    <main className={classes.content}>
+                    <main className={classes.content, "d-flex full-width justify-center"}>
                         <Content />
                     </main>
                 </div>

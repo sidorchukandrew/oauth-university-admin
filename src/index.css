@@ -10,6 +10,10 @@ a {
     color: black;
 }
 
+button, input, textarea {
+    outline: none;
+}
+
 body {
     padding: 0;
     margin: 0;
@@ -33,7 +37,11 @@ body {
 }
 
 .justify-end {
-    justify-content: end;
+    justify-content: flex-end;
+}
+
+.justify-space-between {
+    justify-content: space-between;
 }
 
 .align-center {
@@ -62,6 +70,11 @@ body {
     background-color: #1f2937;
 }
 
+
+.white-bg {
+    background-color: white;
+}
+
 .primary-color-text {
     color: #1f2937;
 }
@@ -72,6 +85,10 @@ body {
 
 .tertiary-color {
     color: #50abf0;
+}
+
+.secondary-bg {
+    background-color: #5f57ec;
 }
 
 .no-wrap {
@@ -147,6 +164,10 @@ body {
     padding: 20px;
 }
 
+.p-xl {
+    padding: 40px;
+}
+
 .m-md {
     margin: 10px;
 }
@@ -184,6 +205,14 @@ body {
 .m-right-md {
     margin-right: 10px;
 }
+.m-right-lg {
+    margin-right: 20px;
+}
+
+.p-horiz-sm {
+    padding-left: 5px;
+    padding-right: 5px;
+}
 
 .p-horiz-md {
     padding-left: 10px;
@@ -220,11 +249,11 @@ body {
 }
 
 .hov-lighten {
-    transition: background-color 0.1s linear;
+    transition: box-shadow 0.1s linear;
 }
 
 .hov-lighten:hover {
-    background-color: #84848429;
+    box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.05);
 }
 
 .max-w-800 {
@@ -232,9 +261,14 @@ body {
     margin: auto;
 }
 
+.constrained-lg {
+    flex: 0 1 900px;
+    max-width: 900px;
+}
+
 .constrained-md {
+    flex: 0 1 800px;
     max-width: 800px;
-    margin: auto;
 }
 
 .constrained-sm {
@@ -247,19 +281,19 @@ body {
 }
 
 .font-sm {
-    font-size: 0.9em;
+    font-size: 14px;
 }
 
 .font-xs {
-    font-size: 0.76em;
+    font-size: 12px
 }
 
 .font-md {
-    font-size: 1.3em;
+    font-size: 20px;
 }
 
 .font-lg {
-    font-size: 2.3em;
+    font-size: 1.5em;
 }
 
 .bold-6 {
@@ -317,13 +351,12 @@ body {
 }
 
 .hov-secondary-color {
-    transition: color 0.1s linear, font-weight 0.1s linear;
+    transition: color 0.1s linear;
     cursor: pointer;
 }
 
 .hov-secondary-color:hover {
     color: #5f57ec;
-    font-weight: 500;
 }
 
 .double-height {
@@ -359,4 +392,17 @@ body {
 
 .w-80 {
     width: 80%;
+}
+
+.bottom {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+.top-right {
+    position: absolute;
+    top: 0px;
+    right: 0px;
 }

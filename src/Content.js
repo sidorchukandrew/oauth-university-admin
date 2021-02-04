@@ -19,7 +19,7 @@ import Guides from "./Guides";
 function Content() {
 
     return (
-        <main>
+        <div className="constrained-lg p-xl">
             <Switch>
                 <Route path="/guides">
                     <Guides />
@@ -29,7 +29,7 @@ function Content() {
                     <Series />
                 </Route>
             </Switch>
-        </main>
+        </div>
     );
 }
 
