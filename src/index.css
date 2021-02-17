@@ -17,7 +17,7 @@ button, input, textarea {
 body {
     padding: 0;
     margin: 0;
-    background-color: #f4f5f7;
+    background-color: white;
 }
 
 .main-font {
@@ -66,7 +66,7 @@ body {
     outline: none;
 }
 
-.primary-color-bg {
+.primary-bg {
     background-color: #1f2937;
 }
 
@@ -89,6 +89,10 @@ body {
 
 .secondary-bg {
     background-color: #5f57ec;
+}
+
+.secondary-bg-light {
+    background-color: #edebfe;
 }
 
 .no-wrap {
@@ -184,6 +188,14 @@ body {
     margin-bottom: 10px;
 }
 
+.m-left-md {
+    margin-left: 10px;
+}
+
+.m-top-md {
+    margin-top: 10px;
+}
+
 .m-bottom-lg {
     margin-bottom: 20px;
 }
@@ -219,6 +231,11 @@ body {
     padding-right: 10px;
 }
 
+.p-horiz-15 {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
 .p-horiz-lg {
     padding-left: 20px;
     padding-right: 20px;
@@ -246,6 +263,14 @@ body {
 .m-horiz-sm {
     margin-left: 5px;
     margin-right: 5px;
+}
+
+.hov-shade {
+    transition: background-color .1s linear;
+}
+
+.hov-shade:hover {
+    background-color: #f4f5f7a2;
 }
 
 .hov-lighten {
@@ -288,12 +313,21 @@ body {
     font-size: 12px
 }
 
+.font-regular {
+    font-size: 17px;
+}
+
 .font-md {
     font-size: 20px;
 }
 
 .font-lg {
-    font-size: 1.5em;
+    font-size: 25px;
+}
+
+
+.font-xl {
+    font-size: 30px;
 }
 
 .bold-6 {
@@ -308,8 +342,16 @@ body {
     font-weight: 400;
 }
 
+.bold-3 {
+    font-weight: 300;
+}
+
 .flex-grow {
     flex: 1 0 0;
+}
+
+.no-grow {
+    flex: 0 0 0;
 }
 
 .shadow-sm {
@@ -379,19 +421,50 @@ body {
 
 .foc-ring {
     transition: box-shadow .15s linear;
-    box-shadow: 0 0 0 4px transparent;
+}
+
+.transparent {
+    background-color: transparent;
 }
 
 .foc-ring:focus {
     box-shadow: 0 0 0 4px #50abf078;
 }
 
+.foc-lighten {
+    transition: box-shadow .1s linear;
+}
+
+.foc-lighten:focus {
+    box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.15);
+}
+
+.lighten {
+    box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.15);   
+}
+
 .pointer {
     cursor: pointer;
 }
 
-.w-80 {
-    width: 80%;
+.warning {
+    background-color: #fdfdea;
+    color: #997554;
+}
+
+.error {
+    background-color: #fdf2f2;
+    color: #c81e1d;
+}
+
+
+.half-width {
+    flex-basis: 50%;
+    width: 50%;
+}
+
+.p-15 {
+    padding: 15px;
 }
 
 .bottom {
@@ -401,8 +474,6 @@ body {
     right: 0px;
 }
 
-.top-right {
-    position: absolute;
-    top: 0px;
-    right: 0px;
+.red-3 {
+    color: #f98080
 }

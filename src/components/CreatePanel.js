@@ -27,7 +27,7 @@ export default function CreatePanel(props) {
             anchor="right"
             variant="temporary"
             open={props.open}
-            onClose={props.closeCreatePanel}
+            onClose={props.onClose}
             className={classes.drawer}
             classes={
                 { paper: classes.drawerPaper }
@@ -39,7 +39,7 @@ export default function CreatePanel(props) {
                         {props.title}
                     </span>
 
-                    <IconButton onClick={props.closeCreatePanel}>
+                    <IconButton onClick={props.onClose}>
                         <CloseIcon></CloseIcon>
                     </IconButton>
                 </div>
@@ -50,9 +50,9 @@ export default function CreatePanel(props) {
 
                 <div className="p-lg d-flex justify-end border-top-grey bottom white-bg">
                     <span className="m-right-lg">
-                        <OutlinedButton name="Cancel" onClick={props.closeCreatePanel} />
+                        <OutlinedButton name="Cancel" onClick={props.onClose} />
                     </span>
-                    <PrimaryButton name="Create"></PrimaryButton>
+                    <PrimaryButton name="Create" onClick={props.onCreate} loading={props.loading} disabled={props.disabled} ></PrimaryButton>
                 </div>
             </div>
         </Drawer>

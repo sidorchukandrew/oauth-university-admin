@@ -33,7 +33,6 @@ function SideNavigation() {
                 activeClassName="active-link"
                 to="/series"
                 className="grey-text-2 p-vertical-md p-horiz-md font-sm hov-lighten d-flex align-center"
-                exact
             >
                 <SeriesIcon></SeriesIcon>
                 <span className="m-horiz-md">

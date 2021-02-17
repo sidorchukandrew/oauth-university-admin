@@ -1,6 +1,8 @@
 import { Route, Switch } from "react-router-dom";
-import Series from "./Series";
-import Guides from "./Guides";
+import SeriesPage from "./SeriesPage";
+import SeriesDetailPage from "./SeriesDetailPage";
+import EditSeriesDetail from "./EditSeriesDetail";
+import GuidesPage from "./GuidesPage";
 
 /* <p
                 className="bold-5 black-text font-md full-width no-border m-bottom-md"
@@ -22,11 +24,17 @@ function Content() {
         <div className="constrained-lg p-xl">
             <Switch>
                 <Route path="/guides">
-                    <Guides />
+                    <GuidesPage />
                 </Route>
 
+                <Route path="/series/:id/edit">
+                    <EditSeriesDetail />
+                </Route>
+                <Route path="/series/:id">
+                    <SeriesDetailPage />
+                </Route>
                 <Route path="/series">
-                    <Series />
+                    <SeriesPage />
                 </Route>
             </Switch>
         </div>

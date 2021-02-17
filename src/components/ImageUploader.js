@@ -9,13 +9,14 @@ export default class ImageUploader extends React.Component {
         super(props);
         this.hiddenFileLoader = React.createRef();
         this.state = {
-            imageUrl: "",
+            imageUrl: props.imageUrl,
             showImageActions: false
         };
 
         this.handleUploadClick = this.handleUploadClick.bind(this);
         this.handleRemoveClick = this.handleRemoveClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.createEvent = this.createEvent.bind(this);
     }
 
     handleUploadClick() {
@@ -26,6 +27,19 @@ export default class ImageUploader extends React.Component {
         this.setState({
             imageUrl: ""
         });
+
+        this.props.onImageChange(this.createEvent(null));
+    }
+
+    createEvent(value) {
+        let event = {
+            target: {
+                name: this.props.name,
+                value: value
+            }
+        };
+
+        return event;
     }
 
     handleChange(event) {
@@ -33,6 +47,9 @@ export default class ImageUploader extends React.Component {
             let file = event.target?.files[0];
 
             if (file.type === "image/png" || file.type === "image/jpeg") {
+
+                this.props.onImageChange(this.createEvent(file));
+
                 let reader = new FileReader();
                 reader.onload = () => this.setState({
                     imageUrl: reader.result
@@ -45,9 +62,21 @@ export default class ImageUploader extends React.Component {
 
     render() {
 
+        let imageUrl = null;
+        if (this.state.imageUrl) {
+            imageUrl = this.state.imageUrl;
+        }
+
+        else if (this.props.imageUrl) {
+            imageUrl = this.props.imageUrl;
+        }
+        else {
+            imageUrl = null;
+        }
+
         let imagePreview = <div style={{ position: "relative" }}>
             <img
-                src={this.state.imageUrl}
+                src={imageUrl}
                 className="full-width pointer"
                 alt="Series"
                 onClick={this.handleUploadClick}
@@ -79,7 +108,7 @@ export default class ImageUploader extends React.Component {
                     style={{ display: 'none' }}
                 />
 
-                {this.state.imageUrl ? imagePreview : uploadButton}
+                {imageUrl ? imagePreview : uploadButton}
             </div>
         );
     }
