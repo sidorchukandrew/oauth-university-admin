@@ -6,6 +6,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 
+
 const drawerWidth = 200;
 
 const useStyles = makeStyles(() => ({
@@ -41,7 +42,7 @@ function Structure() {
                     >
                         <SideNavigation />
                     </Drawer>
-                    <main className={classes.content + " d-flex full-width justify-center"}>
+                    <main className={"d-flex full-width justify-center"}>
                         <Content />
                     </main>
                 </div>

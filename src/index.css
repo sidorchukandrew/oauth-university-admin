@@ -10,6 +10,11 @@ a {
     color: black;
 }
 
+p, h1, h2, h3, h4 {
+    margin: 0;
+    padding: 0;
+}
+
 button, input, textarea {
     outline: none;
 }
@@ -196,6 +201,10 @@ body {
     margin-top: 10px;
 }
 
+.m-bottom-sm {
+    margin-bottom: 5px;
+}
+
 .m-bottom-lg {
     margin-bottom: 20px;
 }
@@ -214,6 +223,12 @@ body {
     margin-bottom: 40px;
 }
 
+.m-right-xs {
+    margin-right: 3px;
+}
+.m-right-sm {
+    margin-right: 5px;
+}
 .m-right-md {
     margin-right: 10px;
 }
@@ -384,8 +399,12 @@ body {
     letter-spacing: 2px;
 }
 
-.grey-bg-4 {
+.grey-bg-5 {
     background-color: #f4f5f7a2;
+}
+
+.grey-bg-4 {
+    background-color: #d0d0d0a3;
 }
 
 .grey-bg-3 {
@@ -476,4 +495,20 @@ body {
 
 .red-3 {
     color: #f98080
+}
+
+.monospace {
+    font-family: monospace;
+}
+
+.rounded-left-sm {
+    border-radius: 0px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.rounded-right-sm {
+    border-radius: 0px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }

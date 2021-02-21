@@ -1,10 +1,10 @@
+import GuidesListEntry from "./GuidesListEntry";
+
 export default function GuidesList(props) {
 
     let guides = props.guides?.map(guide => {
         return (
-            <div key={guide.id}>
-                {guide.title} {guide.description}
-            </div>
+            <GuidesListEntry key={guide.id} guide={guide} />
         );
     });
     return (

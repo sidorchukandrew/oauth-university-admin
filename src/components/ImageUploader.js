@@ -93,7 +93,7 @@ export default class ImageUploader extends React.Component {
 
         let uploadButton = <div
             onClick={this.handleUploadClick}
-            className="pointer d-flex justify-center f-column align-center hov-secondary-color grey-bg-4"
+            className="pointer d-flex justify-center f-column align-center hov-secondary-color grey-bg-5"
             style={{ height: "200px" }}
         >
             <span>Upload an Image</span>

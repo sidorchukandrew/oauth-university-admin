@@ -1,5 +1,5 @@
 export default function Bubble(props) {
-    let classes = "rounded-sm font-xs m-horiz-md p-sm bold-5";
+    let classes = "rounded-sm font-xs p-sm bold-5";
 
     if (props.type === "warning" || props.type === "warn") {
         classes = classes + " warning";
@@ -8,7 +8,7 @@ export default function Bubble(props) {
         classes = classes + " secondary-bg-light secondary-color"
     }
     else {
-        classes = classes + " grey-bg-4"
+        classes = classes + " grey-bg-5"
     }
     let bubble = (
         <span className={classes}>

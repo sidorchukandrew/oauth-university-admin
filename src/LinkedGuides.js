@@ -48,7 +48,7 @@ export default function LinkedGuides(props) {
                 />
             </SectionHeading>
 
-            <div className="grey-bg-4">
+            <div className="grey-bg-5">
                 {guides.length > 0 ? guides : <NoContent text="No guides linked yet" />}
             </div>
 

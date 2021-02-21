@@ -21,7 +21,6 @@ function SideNavigation() {
                 activeClassName="active-link"
                 to="/guides"
                 className="grey-text-2 p-vertical-md p-horiz-md font-sm hov-lighten d-flex align-center"
-                exact
             >
                 <BookIcon></BookIcon>
                 <span className="m-horiz-md">

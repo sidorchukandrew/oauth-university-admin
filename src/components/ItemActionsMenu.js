@@ -31,7 +31,7 @@ export default class ItemActionsMenu extends React.Component {
     }
 
     render() {
-        let menuItems = this.props.actions.map(action => {
+        let menuItems = this.props.actions?.map(action => {
             return (<MenuItem key={action.name} onClick={action.handler}>{action.name}</MenuItem>)
         });
         return (
