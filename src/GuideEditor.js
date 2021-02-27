@@ -24,6 +24,7 @@ export default function GuideEditor(props) {
     }
 
     let handleUpdateSections = (newSections) => {
+        console.log(newSections);
         let guide = JSON.parse(JSON.stringify(props.guide));
         guide.sections = newSections.map(section => {
             return section.body
@@ -71,7 +72,7 @@ export default function GuideEditor(props) {
             </div>
             <GuideSectionsList
                 onChange={handleUpdateSections}
-                sections={toDraggableSections(props.guide?.sections ? props.guide.sections : [])}
+                sections={toDraggableSections(props.guide?.sections ? sortByOrdinal(props.guide.sections) : [])}
             />
         </div>
     );
@@ -82,4 +83,8 @@ function toDraggableSections(sections) {
         draggableId: `item-${index}`,
         body: section
     }));
+}
+
+function sortByOrdinal(sections) {
+    return sections?.sort((a, b) => a.ordinal - b.ordinal);
 }

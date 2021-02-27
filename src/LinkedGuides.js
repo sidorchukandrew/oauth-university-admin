@@ -8,21 +8,16 @@ import NoContent from "./components/NoContent";
 export default function LinkedGuides(props) {
 
     const [showUnlinkedGuides, setShowUnlinkedGuides] = useState(false);
-    const [linkedGuides, setLinkedGuides] = useState([]);
-
-    let handleToggleUnlinkedGuides = (value) => {
-        setShowUnlinkedGuides(value);
-    }
 
     let handleUnlink = (guideToUnlink) => {
-        let updatedLinkedGuides = linkedGuides.filter(guide => guide !== guideToUnlink);
-        setLinkedGuides(updatedLinkedGuides);
+        let updatedLinkedGuides = props.guides?.filter(guide => guide.id !== guideToUnlink.id);
+        props.onChange(updatedLinkedGuides);
     }
 
-    let guides = linkedGuides.map(guide => {
+    let guides = props.guides?.map(guide => {
         return (
-            <div className="bold-4 font-sm p-md border-btm-grey d-flex" key={guide}>
-                {guide}
+            <div className="bold-4 font-sm p-md border-btm-grey d-flex" key={guide.id}>
+                {guide.title}
                 <span
                     className="m-left-md grey-text-6 hov-secondary-color"
                     onClick={() => handleUnlink(guide)}
@@ -34,28 +29,28 @@ export default function LinkedGuides(props) {
     });
 
     let handleAddLinkedGuides = (addedGuides) => {
-        let updatedLinkedGuides = linkedGuides.concat(addedGuides);
-        setLinkedGuides(updatedLinkedGuides);
+        let updatedLinkedGuides = props.guides?.concat(addedGuides);
+        props.onChange(updatedLinkedGuides);
     };
 
     return (
         <div>
-
             <SectionHeading title="Guides">
                 <PrimaryButton
                     name="Add"
-                    onClick={() => handleToggleUnlinkedGuides(true)}
+                    onClick={() => setShowUnlinkedGuides(true)}
                 />
             </SectionHeading>
 
             <div className="grey-bg-5">
-                {guides.length > 0 ? guides : <NoContent text="No guides linked yet" />}
+                {props.guides?.length > 0 ? guides : <NoContent text="No guides linked yet" />}
             </div>
 
             <UnlinkedGuidesDialog
                 open={showUnlinkedGuides}
-                onClose={() => handleToggleUnlinkedGuides(false)}
+                onClose={() => setShowUnlinkedGuides(false)}
                 onAdd={handleAddLinkedGuides}
+                alreadyLinkedGuides={props.guides}
             />
         </div>
     );

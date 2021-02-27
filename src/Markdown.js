@@ -1,4 +1,5 @@
 import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Clear";
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import gfm from "remark-gfm";
@@ -53,15 +54,20 @@ export default function Markdown(props) {
     } else {
         contentComponent = (
             <div className="d-flex justify-space-between align-center">
-                <div className="flex-grow double-height">
+                <div className="flex-grow double-height markdown">
                     <ReactMarkdown plugins={[gfm]}>
                         {props.content}
                     </ReactMarkdown>
                 </div>
 
-                <span className="m-left-md grey-text-6 hov-secondary-color">
-                    <EditIcon style={{ fontSize: "18px" }} onClick={() => setEditing(true)} />
-                </span>
+                <div className="d-flex f-column">
+                    <span className="m-left-lg grey-text-6 hov-secondary-color m-bottom-md">
+                        <EditIcon style={{ fontSize: "18px" }} onClick={() => setEditing(true)} />
+                    </span>
+                    <span className="m-left-lg grey-text-6 hov-error-color">
+                        <DeleteIcon style={{ fontSize: "22px" }} onClick={() => setEditing(true)} />
+                    </span>
+                </div>
             </div>
         )
     }

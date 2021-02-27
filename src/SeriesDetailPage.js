@@ -26,6 +26,7 @@ export default function SeriesDetailPage() {
         async function fetchData() {
             try {
                 let result = await seriesApi.getOne(id);
+                console.log(result.data);
                 setSeries(result.data);
                 setOriginalSeries(result.data);
             } catch (error) {
@@ -48,6 +49,15 @@ export default function SeriesDetailPage() {
         setSeries(updatedSeries);
         setEdited(true);
     };
+
+    let handleEditLinkedGuides = (edits) => {
+        let updatedSeries = JSON.parse(JSON.stringify(series));
+        updatedSeries.guides = edits;
+        console.log(edits);
+        console.log(updatedSeries);
+        setSeries(updatedSeries);
+        setEdited(true);
+    }
 
     let handlePublishedStatus = (published) => {
         let updatedSeries = JSON.parse(JSON.stringify(series));
@@ -94,6 +104,10 @@ export default function SeriesDetailPage() {
             }
         }
 
+        if (originalSeries.guides?.length !== series.guides?.length) {
+            edits.guides = series.guides;
+        }
+
         edits.published = series.published;
 
         try {
@@ -116,7 +130,9 @@ export default function SeriesDetailPage() {
             <div className="font-lg bold-6 d-flex justify-space-between m-bottom-md">
                 <span className="d-flex align-center">
                     {series.title}
-                    {series.published ? <Bubble type="primary">Published</Bubble> : <Bubble type="warn">Drafting</Bubble>}
+                    <span className="m-left-md d-flex align-center">
+                        {series.published ? <Bubble type="primary">Published</Bubble> : <Bubble type="warn">Drafting</Bubble>}
+                    </span>
                 </span>
                 <div className="d-flex align-center">
                     <span className="m-horiz-md d-flex align-center">
@@ -189,7 +205,10 @@ export default function SeriesDetailPage() {
             </div>
 
             <div>
-                <LinkedGuides />
+                <LinkedGuides
+                    guides={series.guides}
+                    onChange={handleEditLinkedGuides}
+                />
             </div>
         </div>
     );

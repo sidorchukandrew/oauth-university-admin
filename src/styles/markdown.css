@@ -1,0 +1,14 @@
+.markdown h1, .markdown h2, .markdown h3 {
+    font-weight: 500;
+}
+
+.markdown h2 {
+    font-size: 22px;
+    margin: 15px 0px;
+}
+
+.markdown p {
+    line-height: 2;
+    color: #6c7280;
+    font-size: 16px;
+}

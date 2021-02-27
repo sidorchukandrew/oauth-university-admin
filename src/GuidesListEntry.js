@@ -1,12 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import ItemActionsMenu from "./components/ItemActionsMenu";
-
 export default function GuidesListEntry(props) {
+    let routeHistory = useHistory();
+
     let guide = props.guide;
+
     let actions = [
         {
             name: "Edit",
-            handler: () => console.log("Hi")
+            handler: () => routeHistory.push("/guides/" + guide?.id)
+        },
+        {
+            name: "Delete",
+            handler: () => props.onDeleteGuide(guide?.id)
         }
     ]
 

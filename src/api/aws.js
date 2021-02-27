@@ -3,7 +3,7 @@ import axios from "axios";
 export default class AwsApi {
 
     static getUploadConfig() {
-        return axios.get("http://localhost:3001/aws/images/signed_url");
+        return axios.get(process.env.REACT_APP_API_BASE_URL + "/aws/images/signed_url");
     }
 
     static uploadImage(presignedUrl, image) {
@@ -23,6 +23,6 @@ export default class AwsApi {
     }
 
     static deleteImage(imageUrl) {
-        return axios.delete("http://localhost:3001/aws/images?imageUrl=" + imageUrl);
+        return axios.delete(process.env.REACT_APP_API_BASE_URL + "/aws/images?imageUrl=" + imageUrl);
     }
 }

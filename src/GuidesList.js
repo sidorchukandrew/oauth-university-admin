@@ -4,7 +4,11 @@ export default function GuidesList(props) {
 
     let guides = props.guides?.map(guide => {
         return (
-            <GuidesListEntry key={guide.id} guide={guide} />
+            <GuidesListEntry
+                key={guide.id}
+                guide={guide}
+                onDeleteGuide={props.onDeleteGuide}
+            />
         );
     });
     return (

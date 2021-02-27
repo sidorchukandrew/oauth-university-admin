@@ -1,3 +1,5 @@
+@import "./markdown";
+
 * {
     text-decoration: none;
 }
@@ -195,6 +197,10 @@ body {
 
 .m-left-md {
     margin-left: 10px;
+}
+
+.m-left-lg {
+    margin-left: 20px;
 }
 
 .m-top-md {
@@ -418,6 +424,15 @@ body {
 
 .hov-secondary-color:hover {
     color: #5f57ec;
+}
+
+.hov-error-color {
+    transition: color 0.1s linear;
+    cursor: pointer;
+}
+
+.hov-error-color:hover {
+    color: #e21717;
 }
 
 .double-height {

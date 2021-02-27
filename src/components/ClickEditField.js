@@ -23,7 +23,7 @@ export default function ClickEditField(props) {
                     onInput={(event) => handleEditsMade(event.target.innerText)}
                     suppressContentEditableWarning={true}
                     onBlur={handleCommitEdits}
-                    className="foc-ring rounded-sm p-sm no-border"
+                    className="foc-ring rounded-sm p-sm no-border hov-shade"
                     style={{ whiteSpace: "pre-wrap" }}
                 >
                     {props.content}

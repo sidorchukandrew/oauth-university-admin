@@ -37,6 +37,16 @@ export default function GuidesPage(props) {
         setAllGuides(updatedGuidesList);
     }
 
+    let handleDeleteGuide = async (deletedGuideId) => {
+        try {
+            await guidesApi.delete(deletedGuideId);
+            let updatedGuidesList = allGuides.filter(guide => guide.id !== deletedGuideId);
+            setAllGuides(updatedGuidesList);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     let loadingIndicator = (
         <div className="d-flex justify-center p-lg">
             <Loader type="TailSpin" color="#5f57ec" height="100" style={{ transform: "translateX('-25px')" }} />
@@ -52,7 +62,7 @@ export default function GuidesPage(props) {
                 onActionClicked={() => handleToggleCreatePanel(true)}
             />
 
-            {allGuides.length > 0 ? <GuidesList guides={allGuides} /> : noContent}
+            {allGuides.length > 0 ? <GuidesList guides={allGuides} onDeleteGuide={handleDeleteGuide} /> : noContent}
 
             <CreateGuidePanel
                 open={showCreatePanel}

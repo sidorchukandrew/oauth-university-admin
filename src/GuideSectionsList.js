@@ -9,7 +9,7 @@ export default function GuideSectionsList(props) {
         const [removed] = result.splice(startIndex, 1);
         result.splice(endIndex, 0, removed);
 
-        result.forEach((section, index) => section.ordinal = index);
+        result.forEach((section, index) => section.body.ordinal = index);
         return result;
     };
 
@@ -55,7 +55,7 @@ export default function GuideSectionsList(props) {
             updatedSections.push({
                 draggableId: `item-${updatedSections.length}`,
                 body: {
-                    type: "markdown",
+                    section_type: "markdown",
                     content: "Start writing here...",
                     ordinal: updatedSections.length
                 }

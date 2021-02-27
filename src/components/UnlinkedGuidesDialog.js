@@ -1,22 +1,37 @@
 import Dialog from "@material-ui/core/Dialog";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PrimaryButton from "./PrimaryButton";
 import OutlinedButton from "./OutlinedButton";
 import Checkbox from "@material-ui/core/Checkbox";
 import NoContent from "./NoContent";
+import guidesApi from "../api/guides";
 
 export default function UnlinkedGuidesDialog(props) {
 
     let [selectedGuides, setSelectedGuides] = useState([]);
+    let [allUnlinkedGuides, setAllUnlinkedGuides] = useState([]);
 
-    let handleCheckedChange = (checked, guideId) => {
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                let result = await guidesApi.getByFilters({ series_id: null });
+                setAllUnlinkedGuides(result.data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        fetchData();
+    }, []);
+
+    let handleCheckedChange = (checked, guide) => {
 
         let updatedSelection = [];
         if (checked) {
             updatedSelection = selectedGuides.slice();
-            updatedSelection.push(guideId);
+            updatedSelection.push(guide);
         } else {
-            updatedSelection = selectedGuides.filter(id => guideId !== id);
+            updatedSelection = selectedGuides.filter(selectedGuide => selectedGuide.id !== guide.id);
         }
         setSelectedGuides(updatedSelection);
     }
@@ -31,33 +46,19 @@ export default function UnlinkedGuidesDialog(props) {
         handleClose();
     }
 
-    let unlinkedGuides = (<div>
-        <div className="bold-4 font-sm p-vertical-sm border-btm-grey d-flex align-center">
-            <Checkbox
-                size="small"
-                checked={selectedGuides.includes(1)}
-                onChange={($event) => handleCheckedChange($event.target.checked, 1)}
-            />
-                        Login with Facebook
-                    </div>
-        <div className="bold-4 font-sm p-vertical-sm border-btm-grey d-flex align-center">
-            <Checkbox
-                size="small"
-                checked={selectedGuides.includes(2)}
-                onChange={($event) => handleCheckedChange($event.target.checked, 2)}
-            />
-                        Login with Google
-                    </div>
-        <div className="bold-4 font-sm p-vertical-sm border-btm-grey d-flex align-center">
-            <Checkbox
-                size="small"
-                checked={selectedGuides.includes(3)}
-                onChange={($event) => handleCheckedChange($event.target.checked, 3)}
-            />
-                Login with LinkedIn
+    let unstagedGuides = allUnlinkedGuides.filter(unlinkedGuide => !props.alreadyLinkedGuides?.includes(unlinkedGuide));
+    unstagedGuides = unstagedGuides.map(unstagedGuide => {
+        return (
+            <div className="bold-4 font-sm p-vertical-sm border-btm-grey d-flex align-center" key={unstagedGuide.id}>
+                <Checkbox
+                    size="small"
+                    checked={selectedGuides.includes(unstagedGuide)}
+                    onChange={($event) => handleCheckedChange($event.target.checked, unstagedGuide)}
+                />
+                {unstagedGuide.title}
             </div>
-    </div>
-    )
+        )
+    });
 
     return (
         <Dialog open={props.open} onClose={handleClose}>
@@ -68,8 +69,8 @@ export default function UnlinkedGuidesDialog(props) {
                         {selectedGuides.length > 0 ? selectedGuides.length + " selected" : ""}
                     </span>
                 </div>
-                {unlinkedGuides.length > 0 ? unlinkedGuides : <NoContent text="No unlinked guides available" />}
-                <div className="d-flex justify-end p-horiz-lg p-vertical-md align-center main-font">
+                {unstagedGuides?.length > 0 ? unstagedGuides : <NoContent text="No unlinked guides available" />}
+                <div className="d-flex justify-end p-vertical-md align-center main-font">
                     <span className="m-horiz-md">
                         <OutlinedButton name="Cancel" onClick={handleClose} />
                     </span>

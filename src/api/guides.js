@@ -2,18 +2,42 @@ import axios from "axios";
 
 export default class GuidesApi {
     static create(guide) {
-        return axios.post("http://localhost:3001/guides", guide);
+        return axios.post(process.env.REACT_APP_API_BASE_URL + "/guides", guide);
     }
 
     static getAll() {
-        return axios.get("http://localhost:3001/guides");
+        return axios.get(process.env.REACT_APP_API_BASE_URL + "/guides");
     }
 
     static getOne(id) {
-        return axios.get("http://localhost:3001/guides/" + id);
+        return axios.get(process.env.REACT_APP_API_BASE_URL + "/guides/" + id);
     }
 
     static updateOne(guideId, updates) {
-        return axios.patch("http://localhost:3001/guides/" + guideId, updates);
+
+        if (updates.sections) {
+            updates.sections_attributes = updates.sections;
+
+            updates.sections_attributes = updates.sections_attributes.map(section => {
+                return {
+                    content: section.content,
+                    section_type: section.section_type,
+                    ordinal: section.ordinal,
+                    id: section.id
+                };
+            });
+            delete updates.sections;
+        }
+
+        return axios.patch(process.env.REACT_APP_API_BASE_URL + "/guides/" + guideId, updates);
+    }
+
+    static delete(guideId) {
+        return axios.delete(process.env.REACT_APP_API_BASE_URL + "/guides/" + guideId);
+    }
+
+    static getByFilters(filters) {
+        let queryParams = Object.keys(filters).map(key => key + "=" + filters[key]).join("&");
+        return axios.get(process.env.REACT_APP_API_BASE_URL + "/guides?" + queryParams);
     }
 }
