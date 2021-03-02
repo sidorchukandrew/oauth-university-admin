@@ -19,12 +19,18 @@ export default class GuidesApi {
             updates.sections_attributes = updates.sections;
 
             updates.sections_attributes = updates.sections_attributes.map(section => {
-                return {
+                let baseSection = {
                     content: section.content,
                     section_type: section.section_type,
                     ordinal: section.ordinal,
                     id: section.id
                 };
+
+                if (section.section_type === "component" && section.content === "button generator") {
+                    baseSection.oauth_config_attributes = section.oauthConfig;
+                }
+
+                return baseSection;
             });
             delete updates.sections;
         }

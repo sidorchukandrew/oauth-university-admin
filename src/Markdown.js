@@ -1,5 +1,5 @@
 import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Clear";
+// import DeleteIcon from "@material-ui/icons/Clear";
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import gfm from "remark-gfm";
@@ -60,13 +60,13 @@ export default function Markdown(props) {
                     </ReactMarkdown>
                 </div>
 
-                <div className="d-flex f-column">
-                    <span className="m-left-lg grey-text-6 hov-secondary-color m-bottom-md">
+                <div className="d-flex justify-center f-column">
+                    <span className="m-left-lg grey-text-6 hov-secondary-color">
                         <EditIcon style={{ fontSize: "18px" }} onClick={() => setEditing(true)} />
                     </span>
-                    <span className="m-left-lg grey-text-6 hov-error-color">
+                    {/* <span className="m-left-lg grey-text-6 hov-error-color">
                         <DeleteIcon style={{ fontSize: "22px" }} onClick={() => setEditing(true)} />
-                    </span>
+                    </span> */}
                 </div>
             </div>
         )

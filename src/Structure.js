@@ -1,11 +1,11 @@
 import React from "react";
 import Content from "./Content";
 import SideNavigation from "./SideNavigation";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-
+import LoginPage from "./LoginPage";
 
 const drawerWidth = 200;
 
@@ -30,22 +30,28 @@ function Structure() {
     return (
         <div className="main-font">
             <Router>
-                <div className={classes.root}>
-
-                    <Drawer
-                        className={classes.drawer}
-                        variant="permanent"
-                        classes={{
-                            paper: classes.drawerPaper,
-                        }}
-                        anchor="left"
-                    >
-                        <SideNavigation />
-                    </Drawer>
-                    <main className={"d-flex full-width justify-center"}>
-                        <Content />
-                    </main>
-                </div>
+                <Switch>
+                    <Route path="/login">
+                        <LoginPage />
+                    </Route>
+                    <Route path="/">
+                        <div className={classes.root}>
+                            <Drawer
+                                className={classes.drawer}
+                                variant="permanent"
+                                classes={{
+                                    paper: classes.drawerPaper,
+                                }}
+                                anchor="left"
+                            >
+                                <SideNavigation />
+                            </Drawer>
+                            <main className="d-flex full-width justify-center">
+                                <Content />
+                            </main>
+                        </div>
+                    </Route>
+                </Switch>
             </Router>
         </div>
     );

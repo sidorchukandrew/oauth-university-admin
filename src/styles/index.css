@@ -179,6 +179,10 @@ body {
     padding: 40px;
 }
 
+.m-auto {
+    margin: auto;
+}
+
 .m-md {
     margin: 10px;
 }
@@ -526,4 +530,20 @@ body {
     border-radius: 0px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+}
+
+.rounded-top-sm {
+    border-radius: 0px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.rounded-bottom-sm {
+    border-radius: 0px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.full-height {
+    height: 100vh;
 }

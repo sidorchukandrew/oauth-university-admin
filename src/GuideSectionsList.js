@@ -60,6 +60,19 @@ export default function GuideSectionsList(props) {
                     ordinal: updatedSections.length
                 }
             });
+            props.onChange(updatedSections);
+        }
+
+        else if (sectionType === "button generator") {
+            let updatedSections = JSON.parse(JSON.stringify(props.sections));
+            updatedSections.push({
+                draggableId: `item-${updatedSections.length}`,
+                body: {
+                    section_type: "component",
+                    content: "button generator",
+                    ordinal: updatedSections.length
+                }
+            });
 
             props.onChange(updatedSections);
         }
@@ -68,8 +81,12 @@ export default function GuideSectionsList(props) {
     const handleEditSection = (editEvent) => {
         let updatedSections = JSON.parse(JSON.stringify(props.sections));
         let indexToUpdate = editEvent.section.ordinal;
-        console.log(indexToUpdate);
-        updatedSections[indexToUpdate].body.content = editEvent.edits;
+
+        if (editEvent.target === "markdown") {
+            updatedSections[indexToUpdate].body.content = editEvent.edits;
+        } else if (editEvent.target === "button generator") {
+            updatedSections[indexToUpdate].body.oauthConfig = editEvent.edits;
+        }
 
         props.onChange(updatedSections);
     }

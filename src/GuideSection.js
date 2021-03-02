@@ -1,3 +1,4 @@
+import OAuthButtonGenerator from './components/OAuthButtonGenerator';
 import Markdown from './Markdown';
 
 export default function GuideSection(props) {
@@ -8,11 +9,20 @@ export default function GuideSection(props) {
         sectionContent = (
             <Markdown
                 content={props.section?.content}
-                onChange={(edits) => props.onChange({ edits: edits, section: props.section })}
+                onChange={(edits) => props.onChange({ edits: edits, section: props.section, target: "markdown" })}
             />
         );
     } else if (props.section?.section_type === "component") {
-        sectionContent = props.section?.content;
+        let componentType = props.section?.content;
+
+        if (componentType === "button generator") {
+            sectionContent = (
+                <OAuthButtonGenerator
+                    config={props.section?.oauthConfig}
+                    onChange={(edits) => props.onChange({ edits: edits, section: props.section, target: "button generator" })}
+                />
+            );
+        }
     }
 
     return sectionContent;

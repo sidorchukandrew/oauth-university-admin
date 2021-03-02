@@ -4,20 +4,6 @@ import SeriesDetailPage from "./SeriesDetailPage";
 import GuidesPage from "./GuidesPage";
 import GuideDetailPage from "./GuideDetailPage";
 
-/* <p
-                className="bold-5 black-text font-md full-width no-border m-bottom-md"
-                contentEditable
-                suppressContentEditableWarning={true}
-            >
-                Title here
-            </p>
-            <p
-                contentEditable
-                className="grey-text-6 no-border full-width double-height m-vertical-md"
-                onInput={this.handleInput}
-                suppressContentEditableWarning={true}
-            > Content goes in here</p> */
-
 function Content() {
 
     return (

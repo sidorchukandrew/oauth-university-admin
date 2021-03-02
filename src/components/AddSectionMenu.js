@@ -7,6 +7,11 @@ export default function AddSectionMenu(props) {
 
     const [menuAnchor, setMenuAnchor] = useState(false);
 
+    let handleAdd = (sectionToAdd) => {
+        props.onAdd(sectionToAdd);
+        setMenuAnchor(null);
+    }
+
     return (
         <div className="d-flex justify-end m-vertical-lg">
             <OutlinedButton name="Add Section" onClick={(event) => setMenuAnchor(event.currentTarget)} />
@@ -15,10 +20,10 @@ export default function AddSectionMenu(props) {
                 open={Boolean(menuAnchor)}
                 onClose={() => setMenuAnchor(null)}
             >
-                <MenuItem onClick={() => props.onAdd("markdown")}>
+                <MenuItem onClick={() => handleAdd("markdown")}>
                     Markdown
                 </MenuItem>
-                <MenuItem>
+                <MenuItem onClick={() => handleAdd("button generator")}>
                     Button Generator
                 </MenuItem>
             </Menu>
