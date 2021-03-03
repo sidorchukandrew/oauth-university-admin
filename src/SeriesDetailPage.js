@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-
 import seriesApi from "./api/series";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import PrimaryButton from "./components/PrimaryButton";
 import ImageUploader from "./components/ImageUploader";
 import OutlinedButton from "./components/OutlinedButton";
@@ -21,6 +20,7 @@ export default function SeriesDetailPage() {
     const [showSuccess, setShowSuccess] = useState(false);
 
     let { id } = useParams();
+    let router = useHistory();
 
     useEffect(() => {
         async function fetchData() {
@@ -30,7 +30,9 @@ export default function SeriesDetailPage() {
                 setSeries(result.data);
                 setOriginalSeries(result.data);
             } catch (error) {
-                console.log(error);
+                if (error.response.status === 401) {
+                    router.push("/login");
+                }
             }
         }
         fetchData();

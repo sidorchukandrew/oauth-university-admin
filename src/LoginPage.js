@@ -3,6 +3,7 @@ import PrimaryButton from "./components/PrimaryButton";
 import authApi from "./api/auth";
 import { useState } from "react";
 import ErrorAlert from "./components/ErrorAlert";
+import { useHistory } from "react-router-dom";
 
 export default function LoginPage(props) {
     const [loading, setLoading] = useState(false);
@@ -10,12 +11,15 @@ export default function LoginPage(props) {
     const [password, setPassword] = useState("");
     const [loginErrors, setLoginErrors] = useState([]);
 
+    let router = useHistory();
+
     let attemptLogin = async () => {
         setLoading(true);
         try {
             let result = await authApi.login(email, password);
             localStorage.setItem("ACCESS_TOKEN", result.data?.token);
             setLoginErrors([]);
+            router.push("/");
         } catch (error) {
             let updatedErrors = loginErrors.splice();
             updatedErrors.push(error.response.data.error);

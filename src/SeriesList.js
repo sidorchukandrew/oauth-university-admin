@@ -4,6 +4,7 @@ import BulkActionsBar from "./components/BulkActionsBar";
 import SeriesListEntry from "./SeriesListEntry";
 import Loader from "react-loader-spinner";
 
+
 export default class SeriesList extends React.Component {
     constructor(props) {
         super(props);
@@ -49,7 +50,9 @@ export default class SeriesList extends React.Component {
                 allSeries: response.data
             });
         } catch (error) {
-            console.log(error);
+            if (error.response.status === 401) {
+
+            }
         } finally {
             this.setState({ loadingFromApi: false });
         }

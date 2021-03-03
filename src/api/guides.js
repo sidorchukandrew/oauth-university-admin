@@ -1,4 +1,5 @@
 import axios from "axios";
+import { generateAuthHeader } from "../utils/HttpUtils";
 
 export default class GuidesApi {
     static create(guide) {
@@ -6,11 +7,15 @@ export default class GuidesApi {
     }
 
     static getAll() {
-        return axios.get(process.env.REACT_APP_API_BASE_URL + "/guides");
+        return axios.get(process.env.REACT_APP_API_BASE_URL + "/guides", {
+            headers: generateAuthHeader()
+        });
     }
 
     static getOne(id) {
-        return axios.get(process.env.REACT_APP_API_BASE_URL + "/guides/" + id);
+        return axios.get(process.env.REACT_APP_API_BASE_URL + "/guides/" + id, {
+            headers: generateAuthHeader()
+        });
     }
 
     static updateOne(guideId, updates) {

@@ -3,7 +3,7 @@ import CancelIcon from "@material-ui/icons/Cancel";
 export default function ErrorAlert(props) {
     let errors = props.errors?.map(error => {
         return (
-            <li className="font-sm bold-3">
+            <li className="font-sm bold-3" key="error">
                 {error}
             </li>
         );

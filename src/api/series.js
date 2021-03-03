@@ -1,14 +1,21 @@
 
 import axios from "axios";
+import { generateAuthHeader } from "../utils/HttpUtils";
 
 export default class SeriesApi {
 
     static create(series) {
-        return axios.post(process.env.REACT_APP_API_BASE_URL + "/series", series);
+        return axios.post(process.env.REACT_APP_API_BASE_URL + "/series", series, {
+            headers: {
+                "Authorization": "Bearer "
+            }
+        });
     }
 
     static getAll() {
-        return axios.get(process.env.REACT_APP_API_BASE_URL + "/series");
+        return axios.get(process.env.REACT_APP_API_BASE_URL + "/series", {
+            headers: generateAuthHeader()
+        });
     }
 
     static publishBulk(seriesIds) {
@@ -81,7 +88,9 @@ export default class SeriesApi {
     }
 
     static getOne(seriesId) {
-        return axios.get(process.env.REACT_APP_API_BASE_URL + "/series/" + seriesId);
+        return axios.get(process.env.REACT_APP_API_BASE_URL + "/series/" + seriesId, {
+            headers: generateAuthHeader()
+        });
     }
 
     static updateOne(seriesId, updates) {
