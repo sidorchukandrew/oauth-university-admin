@@ -85,7 +85,7 @@ export default function GuideSectionsList(props) {
         if (editEvent.target === "markdown") {
             updatedSections[indexToUpdate].body.content = editEvent.edits;
         } else if (editEvent.target === "button generator") {
-            updatedSections[indexToUpdate].body.oauthConfig = editEvent.edits;
+            updatedSections[indexToUpdate].body.oauth_config = editEvent.edits;
         }
 
         props.onChange(updatedSections);

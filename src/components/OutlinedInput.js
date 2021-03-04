@@ -21,7 +21,7 @@ export default function OutlinedInput(props) {
         });
 
     } else {
-        classes = classes + "foc-ring rounded-sm";
+        classes = classes + " foc-ring rounded-sm";
     }
 
     let handleKeyUp = (event) => {

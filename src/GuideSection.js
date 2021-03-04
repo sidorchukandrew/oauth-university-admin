@@ -18,7 +18,7 @@ export default function GuideSection(props) {
         if (componentType === "button generator") {
             sectionContent = (
                 <OAuthButtonGenerator
-                    config={props.section?.oauthConfig}
+                    config={props.section?.oauth_config}
                     onChange={(edits) => props.onChange({ edits: edits, section: props.section, target: "button generator" })}
                 />
             );

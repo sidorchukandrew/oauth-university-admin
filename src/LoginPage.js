@@ -22,7 +22,7 @@ export default function LoginPage(props) {
             router.push("/");
         } catch (error) {
             let updatedErrors = loginErrors.splice();
-            updatedErrors.push(error.response.data.error);
+            updatedErrors.push(error.response?.data.error);
             setLoginErrors(updatedErrors);
         } finally {
             setLoading(false);

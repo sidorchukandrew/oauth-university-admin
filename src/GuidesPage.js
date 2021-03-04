@@ -13,6 +13,7 @@ export default function GuidesPage(props) {
 
     useEffect(() => {
         async function fetchData() {
+            document.title = "Guides";
             setLoading(true);
             try {
                 let result = await guidesApi.getAll();

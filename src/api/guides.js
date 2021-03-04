@@ -32,7 +32,7 @@ export default class GuidesApi {
                 };
 
                 if (section.section_type === "component" && section.content === "button generator") {
-                    baseSection.oauth_config_attributes = section.oauthConfig;
+                    baseSection.oauth_config_attributes = section.oauth_config;
                 }
 
                 return baseSection;
@@ -40,7 +40,9 @@ export default class GuidesApi {
             delete updates.sections;
         }
 
-        return axios.patch(process.env.REACT_APP_API_BASE_URL + "/guides/" + guideId, updates);
+        return axios.patch(process.env.REACT_APP_API_BASE_URL + "/guides/" + guideId, updates, {
+            headers: generateAuthHeader()
+        });
     }
 
     static delete(guideId) {

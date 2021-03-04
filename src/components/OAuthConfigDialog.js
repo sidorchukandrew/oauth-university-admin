@@ -8,7 +8,7 @@ import DeleteIcon from "@material-ui/icons/Close";
 
 export default function OAuthConfigDialog(props) {
 
-    const [baseUrl, setBaseUrl] = useState(props.config?.baseUrl);
+    const [baseUrl, setBaseUrl] = useState(props.config?.base_url);
     const [scopes, setScopes] = useState(props.config?.scopes ? props.config.scopes : []);
 
     let handleChangeBaseUrl = (updatedBaseUrl) => {
@@ -28,7 +28,7 @@ export default function OAuthConfigDialog(props) {
 
     let handleConfirm = () => {
         let config = {
-            baseUrl: baseUrl,
+            base_url: baseUrl,
             scopes: scopes
         };
 

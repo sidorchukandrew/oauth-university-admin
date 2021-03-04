@@ -14,11 +14,13 @@ export default function GuideDefaultPage() {
     const routeHistory = useHistory();
 
     useEffect(() => {
+        document.title = "Guide"
         async function fetchData() {
             setLoading(true);
             try {
                 let result = await guidesApi.getOne(id);
                 setGuide(result.data);
+                document.title = "Guide | " + result.data?.title;
             } catch (error) {
                 console.log(error);
             } finally {
@@ -46,6 +48,7 @@ export default function GuideDefaultPage() {
         try {
             let updates = buildBaseUpdate(guide);
             let result = await guidesApi.updateOne(guide?.id, updates);
+            console.log(result);
             setGuide(result.data);
         } catch (error) {
             console.log(error);

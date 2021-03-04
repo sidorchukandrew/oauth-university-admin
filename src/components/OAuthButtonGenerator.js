@@ -8,6 +8,7 @@ export default function OAuthButtonGenerator(props) {
     const [showConfigDialog, setShowConfigDialog] = useState(false);
 
     let handleConfigUpdated = (updatedConfig) => {
+        updatedConfig.id = props.config?.id;
         props.onChange(updatedConfig);
     };
 
@@ -49,7 +50,7 @@ export default function OAuthButtonGenerator(props) {
 
                 <div className="m-vertical-lg no-wrap horiz-scroll rounded-sm grey-bg-5 p-lg primary-color-text font-sm">
                     <span className="bold-6">
-                        {props.config?.baseUrl}
+                        {props.config?.base_url}
                     </span>
                     ?
                     <span>
