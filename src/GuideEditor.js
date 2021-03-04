@@ -4,12 +4,13 @@ import ClickEditField from "./components/ClickEditField";
 
 export default function GuideEditor(props) {
 
-    let actions = ["Save", "Cancel"];
+    let actions = ["Cancel"];
     if (props.guide?.published) {
         actions.unshift("Save and Unpublish")
     } else {
         actions.unshift("Save and Publish");
     }
+    actions.unshift("Save");
 
     let handleUpdateTitle = (newTitle) => {
         let guide = JSON.parse(JSON.stringify(props.guide));

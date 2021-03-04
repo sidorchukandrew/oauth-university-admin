@@ -5,11 +5,15 @@ import OutlinedButton from "./OutlinedButton";
 import PrimaryButton from "./PrimaryButton";
 import OutlinedInput from "./OutlinedInput";
 import DeleteIcon from "@material-ui/icons/Close";
+import ScopeDelimiterOption from "./ScopeDelimiterOption";
 
 export default function OAuthConfigDialog(props) {
 
     const [baseUrl, setBaseUrl] = useState(props.config?.base_url);
     const [scopes, setScopes] = useState(props.config?.scopes ? props.config.scopes : []);
+    const [scopeDelimiter, setScopeDelimiter] = useState(props.config?.scope_delimiter);
+    const SPACE = " ";
+    const COMMA = ",";
 
     let handleChangeBaseUrl = (updatedBaseUrl) => {
         setBaseUrl(updatedBaseUrl);
@@ -29,7 +33,8 @@ export default function OAuthConfigDialog(props) {
     let handleConfirm = () => {
         let config = {
             base_url: baseUrl,
-            scopes: scopes
+            scopes: scopes,
+            scope_delimiter: scopeDelimiter
         };
 
         props.onChange(config);
@@ -55,6 +60,25 @@ export default function OAuthConfigDialog(props) {
                     />
                 </div>
 
+                <div className="d-flex f-column m-bottom-lg">
+                    <div className="font-xs bold-5 grey-text-6 m-bottom-md">
+                        Scope Delimiter
+                    </div>
+                    <div className="d-flex">
+                        <ScopeDelimiterOption
+                            delimiter="comma"
+                            onClick={() => setScopeDelimiter(COMMA)}
+                            selected={scopeDelimiter === COMMA}
+                        />
+                        <div className="m-horiz-md">
+                            <ScopeDelimiterOption
+                                delimiter="space"
+                                onClick={() => setScopeDelimiter(SPACE)}
+                                selected={scopeDelimiter === SPACE}
+                            />
+                        </div>
+                    </div>
+                </div>
                 <div className="d-flex f-column m-bottom-lg">
                     <div className="font-xs bold-5 grey-text-6 m-bottom-sm">
                         Scopes ({scopes?.length})
