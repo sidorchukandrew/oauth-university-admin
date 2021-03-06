@@ -101,6 +101,7 @@ export default class SeriesListEntry extends React.Component {
                 <div className="no-grow">
                     <Checkbox
                         size="small"
+                        color="primary"
                         onChange={this.handleChecked}
                         checked={this.props.bulkItems.includes(this.props.series.id)}
                     />

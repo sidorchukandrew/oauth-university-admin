@@ -52,6 +52,7 @@ export default function UnlinkedGuidesDialog(props) {
             <div className="bold-4 font-sm p-vertical-sm border-btm-grey d-flex align-center" key={unstagedGuide.id}>
                 <Checkbox
                     size="small"
+                    color="primary"
                     checked={selectedGuides.includes(unstagedGuide)}
                     onChange={($event) => handleCheckedChange($event.target.checked, unstagedGuide)}
                 />

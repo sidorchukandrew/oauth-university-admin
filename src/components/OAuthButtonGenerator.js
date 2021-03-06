@@ -37,7 +37,7 @@ export default function OAuthButtonGenerator(props) {
                             props.config?.scopes?.map(scope => {
                                 return (
                                     <div className="d-flex align-center" key={scope}>
-                                        <Checkbox />
+                                        <Checkbox size="small" color="primary" />
                                         <span className="font-sm">
                                             {scope}
                                         </span>
