@@ -1,153 +1,96 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import seriesApi from "./api/series";
 import BulkActionsBar from "./components/BulkActionsBar";
 import SeriesListEntry from "./SeriesListEntry";
 import Loader from "react-loader-spinner";
+import { useHistory } from "react-router";
 
 
-export default class SeriesList extends React.Component {
-    constructor(props) {
-        super(props);
+export default function SeriesList(props) {
 
-        this.componentDidMount = this.componentDidMount.bind(this);
-        this.addToBulkItems = this.addToBulkItems.bind(this);
-        this.handleCloseBulkActions = this.handleCloseBulkActions.bind(this);
-        this.handlePublishBulk = this.handlePublishBulk.bind(this);
-        this.handleUnpublishBulk = this.handleUnpublishBulk.bind(this);
-        this.handleDeleteBulk = this.handleDeleteBulk.bind(this);
-        this.handleDeleteItem = this.handleDeleteItem.bind(this);
-        this.handleUpdateItem = this.handleUpdateItem.bind(this);
+    const [allSeries, setAllSeries] = useState([]);
+    const [bulkItems, setBulkItems] = useState([]);
+    const [loadingFromApi, setLoadingFromApi] = useState(false);
+    const [bulkActionLoading, setBulkActionLoading] = useState(false);
+    const router = useHistory();
 
-        this.state = {
-            allSeries: [],
-            bulkItems: [],
-            bulkActions: [{
-                name: "Delete",
-                handler: this.handleDeleteBulk
-            },
-            {
-                name: "Publish",
-                handler: this.handlePublishBulk
-            },
-            {
-                handler: this.handleUnpublishBulk,
-                name: "Unpublish",
-            },
-            {
-                handler: this.handleCloseBulkActions,
-                name: "Cancel",
-            },
-            ],
-            loadingFromApi: false
-        }
-    }
-
-    async componentDidMount() {
-        this.setState({ loadingFromApi: true });
-        try {
-            let response = await seriesApi.getAll();
-            this.setState({
-                allSeries: response.data
-            });
-        } catch (error) {
-            if (error.response.status === 401) {
-
+    useEffect(() => {
+        async function fetchData() {
+            setLoadingFromApi(true);
+            try {
+                let response = await seriesApi.getAll();
+                setAllSeries(response.data);
+            } catch (error) {
+                if (error.response.status === 401) {
+                    router.push("/login");
+                }
+            } finally {
+                setLoadingFromApi(false);
             }
-        } finally {
-            this.setState({ loadingFromApi: false });
         }
+        fetchData();
+    }, []);
+
+
+    const handleCloseBulkActions = () => {
+        setBulkItems([]);
     }
 
-
-    handleCloseBulkActions() {
-        this.setState({
-            bulkItems: [],
-        });
-    }
-
-    addToBulkItems(event) {
-        let bulkItems = JSON.parse(JSON.stringify(this.state.bulkItems));
+    const addToBulkItems = (event) => {
+        let updatedBulkItems = JSON.parse(JSON.stringify(bulkItems));
         if (event.checked) {
-            bulkItems.push(event.id);
+            updatedBulkItems.push(event.id);
         } else {
-            bulkItems = bulkItems.filter(id => id !== event.id);
+            updatedBulkItems = bulkItems.filter(id => id !== event.id);
         }
-
-        this.setState({
-            bulkItems: bulkItems
-        });
+        setBulkItems(updatedBulkItems);
     }
 
-    async handlePublishBulk() {
-        this.setState({
-            bulkActionLoading: true
-        });
+    const handlePublishBulk = async () => {
+        setBulkActionLoading(true);
 
         try {
-            let result = await seriesApi.publishBulk(this.state.bulkItems);
-            this.updateCurrentState(result.data);
-            this.handleCloseBulkActions();
-            this.setState({
-                showSuccess: true
-            });
+            let result = await seriesApi.publishBulk(bulkItems);
+            updateCurrentState(result.data);
+            handleCloseBulkActions();
         } catch (error) {
             console.log(error);
         } finally {
-            this.setState({
-                bulkActionLoading: false
-            });
+            setBulkActionLoading(false);
         }
     }
 
-    async handleUnpublishBulk() {
-        this.setState({
-            bulkActionLoading: true
-        });
+    const handleUnpublishBulk = async () => {
+        setBulkActionLoading(true);
         try {
-
-            let result = await seriesApi.unpublishBulk(this.state.bulkItems);
-            this.updateCurrentState(result.data);
-            this.handleCloseBulkActions();
-            this.setState({
-                showSuccess: true
-            });
+            let result = await seriesApi.unpublishBulk(bulkItems);
+            updateCurrentState(result.data);
+            handleCloseBulkActions();
         } catch (error) {
             console.log(error);
         } finally {
-            this.setState({
-                bulkActionLoading: false
-            })
+            setBulkActionLoading(false);
         }
     }
 
-    async handleDeleteBulk() {
-        this.setState({
-            bulkActionLoading: true
-        });
+    const handleDeleteBulk = async () => {
+        setBulkActionLoading(true);
         try {
-
-            await seriesApi.deleteBulk(this.state.bulkItems);
-            let remainingSeries = this.state.allSeries.filter(series => {
-                return !this.state.bulkItems.includes(series.id);
+            await seriesApi.deleteBulk(bulkItems);
+            let remainingSeries = allSeries.filter(series => {
+                return !bulkItems.includes(series.id);
             });
-            this.setState({
-                allSeries: remainingSeries
-            })
-            this.handleCloseBulkActions();
-            this.setState({
-                showSuccess: true
-            });
+            setAllSeries(remainingSeries);
+            handleCloseBulkActions();
         } catch (error) {
             console.log(error);
         } finally {
-            this.setState({
-                bulkActionLoading: false
-            })
+            setBulkActionLoading(false);
         }
     }
 
-    updateCurrentState(newSeries) {
-        let currentSeriesState = this.state.allSeries.slice();
+    const updateCurrentState = (newSeries) => {
+        let currentSeriesState = allSeries.slice();
 
         newSeries.forEach(series => {
             let index = currentSeriesState.findIndex(currentSeries => currentSeries.id === series.id);
@@ -155,67 +98,73 @@ export default class SeriesList extends React.Component {
                 currentSeriesState[index] = series;
             }
         });
-
-        this.setState({
-            allSeries: currentSeriesState
-        });
+        setAllSeries(currentSeriesState);
     }
 
-    handleDeleteItem(seriesId) {
-        let remainingSeries = this.state.allSeries.filter(series => {
+    const handleDeleteItem = (seriesId) => {
+        let remainingSeries = allSeries.filter(series => {
             return series.id !== seriesId;
         });
-        this.setState({
-            allSeries: remainingSeries
-        });
+        setAllSeries(remainingSeries);
     }
 
-    handleUpdateItem(updatedSeries) {
-        let allSeries = this.state.allSeries.slice();
+    const handleUpdateItem = (updatedSeries) => {
+        let updatedSeriesList = allSeries.slice();
 
-        let indexOfSeries = allSeries.findIndex(series => series.id === updatedSeries.id);
+        let indexOfSeries = updatedSeriesList.findIndex(series => series.id === updatedSeries.id);
 
         if (indexOfSeries > -1) {
-            allSeries[indexOfSeries] = updatedSeries;
+            updatedSeriesList[indexOfSeries] = updatedSeries;
         }
-
-        this.setState({
-            allSeries: allSeries
-        });
+        setAllSeries(updatedSeriesList);
     }
 
-    render() {
+    const [bulkActions] = useState([{
+        name: "Delete",
+        handler: handleDeleteBulk
+    },
+    {
+        name: "Publish",
+        handler: handlePublishBulk
+    },
+    {
+        handler: handleUnpublishBulk,
+        name: "Unpublish",
+    },
+    {
+        handler: handleCloseBulkActions,
+        name: "Cancel",
+    }]);
 
-        let list = this.state.allSeries.map(series => {
-            return (
-                <SeriesListEntry
-                    key={series.id}
-                    series={series}
-                    onCheck={this.addToBulkItems}
-                    bulkItems={this.state.bulkItems}
-                    onDelete={this.handleDeleteItem}
-                    onPublish={this.handleUpdateItem}
-                    onUnpublish={this.handleUpdateItem}
-                />
-            );
-        });
-
-        let loadingIndicator = (
-            <div className="d-flex justify-center p-lg">
-                <Loader type="TailSpin" color="#5f57ec" height="100" style={{ transform: "translateX('-25px')" }} />
-            </div>
-        );
-
+    let list = allSeries.map(series => {
         return (
-            <div>
-                {this.state.loadingFromApi ? loadingIndicator : list}
-                <BulkActionsBar
-                    open={this.state.bulkItems.length > 0}
-                    actions={this.state.bulkActions}
-                    items={this.state.bulkItems}
-                    loading={this.state.bulkActionLoading}
-                />
-            </div>
+            <SeriesListEntry
+                key={series.id}
+                series={series}
+                onCheck={addToBulkItems}
+                bulkItems={bulkItems}
+                onDelete={handleDeleteItem}
+                onPublish={handleUpdateItem}
+                onUnpublish={handleUpdateItem}
+            />
         );
-    }
+    });
+
+    let loadingIndicator = (
+        <div className="d-flex justify-center p-lg">
+            <Loader type="TailSpin" color="#5f57ec" height="100" style={{ transform: "translateX('-25px')" }} />
+        </div>
+    );
+
+    return (
+        <div>
+            {loadingFromApi ? loadingIndicator : list}
+            <BulkActionsBar
+                open={bulkItems.length > 0}
+                actions={bulkActions}
+                items={bulkItems}
+                loading={bulkActionLoading}
+            />
+        </div>
+    );
 }

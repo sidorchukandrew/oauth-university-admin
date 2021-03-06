@@ -30,9 +30,10 @@ export default function GuideSection(props) {
             );
         }
     } else if (props.section?.section_type === "image") {
+        let growClass = Boolean(props.section.content) ? "" : "flex-grow";
         sectionContent = (
             <div className="d-flex justify-space-between align-center">
-                <div>
+                <div className={growClass}>
                     <ImageUploader
                         imageUrl={props.section?.content}
                         showImageActions={false}
