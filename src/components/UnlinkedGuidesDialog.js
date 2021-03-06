@@ -22,7 +22,7 @@ export default function UnlinkedGuidesDialog(props) {
         }
 
         fetchData();
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     let handleCheckedChange = (checked, guide) => {
 

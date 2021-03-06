@@ -29,7 +29,7 @@ export default function SeriesList(props) {
             }
         }
         fetchData();
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 
     const handleCloseBulkActions = () => {

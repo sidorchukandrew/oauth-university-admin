@@ -15,7 +15,7 @@ export default function LoginPage(props) {
 
     useEffect(() => {
         document.title = "Login";
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     let attemptLogin = async () => {
         setLoading(true);
