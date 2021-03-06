@@ -26,6 +26,9 @@ export default function AddSectionMenu(props) {
                 <MenuItem onClick={() => handleAdd("button generator")}>
                     Button Generator
                 </MenuItem>
+                <MenuItem onClick={() => handleAdd("image")}>
+                    Image
+                </MenuItem>
             </Menu>
         </div>
     );

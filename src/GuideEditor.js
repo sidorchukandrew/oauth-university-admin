@@ -25,7 +25,6 @@ export default function GuideEditor(props) {
     }
 
     let handleUpdateSections = (newSections) => {
-        console.log(newSections);
         let guide = JSON.parse(JSON.stringify(props.guide));
         guide.sections = newSections.map(section => {
             return section.body

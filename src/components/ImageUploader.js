@@ -97,7 +97,6 @@ export default class ImageUploader extends React.Component {
             style={{ height: "200px" }}
         >
             <span>Upload an Image</span>
-            <span className="font-xs grey-text-6">Dimensions should be 4:3</span>
         </div>
         return (
             <div>

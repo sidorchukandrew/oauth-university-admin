@@ -49,7 +49,6 @@ export default function GuideSectionsList(props) {
     }
 
     const handleAddSection = (sectionType) => {
-        console.log(props.sections);
         if (sectionType === "markdown") {
             let updatedSections = JSON.parse(JSON.stringify(props.sections));
             updatedSections.push({
@@ -76,6 +75,20 @@ export default function GuideSectionsList(props) {
 
             props.onChange(updatedSections);
         }
+
+        else if (sectionType === "image") {
+            let updatedSections = JSON.parse(JSON.stringify(props.sections));
+            updatedSections.push({
+                draggableId: `item-${updatedSections.length}`,
+                body: {
+                    section_type: "image",
+                    content: null,
+                    ordinal: updatedSections.length
+                }
+            });
+
+            props.onChange(updatedSections);
+        }
     }
 
     const handleEditSection = (editEvent) => {
@@ -86,6 +99,8 @@ export default function GuideSectionsList(props) {
             updatedSections[indexToUpdate].body.content = editEvent.edits;
         } else if (editEvent.target === "button generator") {
             updatedSections[indexToUpdate].body.oauth_config = editEvent.edits;
+        } else if (editEvent.target === "image") {
+            updatedSections[indexToUpdate].body.file = editEvent.edits;
         }
 
         props.onChange(updatedSections);

@@ -5,6 +5,7 @@ import GuideEditor from "./GuideEditor";
 import Loader from "react-loader-spinner";
 import Bubble from "./components/Bubble";
 import { useHistory } from "react-router-dom";
+import awsApi from "./api/aws";
 
 export default function GuideDefaultPage() {
     const [guide, setGuide] = useState({});
@@ -46,7 +47,7 @@ export default function GuideDefaultPage() {
     let handleSave = async () => {
         setActionLoading(true);
         try {
-            let updates = buildBaseUpdate(guide);
+            let updates = await buildBaseUpdate(guide);
             let result = await guidesApi.updateOne(guide?.id, updates);
             console.log(result);
             setGuide(result.data);
@@ -123,7 +124,7 @@ export default function GuideDefaultPage() {
     );
 }
 
-function buildBaseUpdate(guide) {
+async function buildBaseUpdate(guide) {
     let updates = {}
     if (guide.title) {
         updates.title = guide.title;
@@ -134,8 +135,31 @@ function buildBaseUpdate(guide) {
     }
 
     if (guide.sections) {
-        updates.sections = guide.sections;
+        updates.sections = await Promise.all(guide.sections.map(async (section) => {
+            if (section.section_type === "image" && section.file) {
+                try {
+                    let uploadConfig = await getUploadConfig();
+                    console.log(uploadConfig);
+                    await awsApi.uploadImage(uploadConfig.presignedUrl, section.file);
+
+                    delete section.file;
+                    section.content = uploadConfig.imageUrl;
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+            return section;
+        }));
     }
 
     return updates;
+}
+
+async function getUploadConfig() {
+    try {
+        let response = await awsApi.getUploadConfig();
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
 }

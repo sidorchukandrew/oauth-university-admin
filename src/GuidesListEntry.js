@@ -1,4 +1,6 @@
 import { Link, useHistory } from "react-router-dom";
+import Bubble from "./components/Bubble";
+
 import ItemActionsMenu from "./components/ItemActionsMenu";
 export default function GuidesListEntry(props) {
     let routeHistory = useHistory();
@@ -23,6 +25,9 @@ export default function GuidesListEntry(props) {
                     <Link to={"/guides/" + guide.id}>
                         {guide.title}
                     </Link>
+                    <span className="m-horiz-md">
+                        {guide.published ? "" : <Bubble type="warning">Drafting</Bubble>}
+                    </span>
                 </div>
                 <div className="grey-text-6 font-sm m-bottom-sm">
                     {guide.description}
