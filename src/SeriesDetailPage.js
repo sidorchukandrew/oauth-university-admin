@@ -23,10 +23,11 @@ export default function SeriesDetailPage() {
     let router = useHistory();
 
     useEffect(() => {
+        document.title = "Series";
         async function fetchData() {
             try {
                 let result = await seriesApi.getOne(id);
-                console.log(result.data);
+                document.title = "Series | " + result.data.title;
                 setSeries(result.data);
                 setOriginalSeries(result.data);
             } catch (error) {

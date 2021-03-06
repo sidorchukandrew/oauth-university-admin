@@ -8,6 +8,7 @@ export default class Series extends React.Component {
 
     constructor(props) {
         super(props);
+        document.title = "Series";
 
         this.openCreatePanel = this.openCreatePanel.bind(this);
         this.closeCreatePanel = this.closeCreatePanel.bind(this);

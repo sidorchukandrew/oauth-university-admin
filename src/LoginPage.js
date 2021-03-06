@@ -1,7 +1,7 @@
 import OutlinedInput from "./components/OutlinedInput";
 import PrimaryButton from "./components/PrimaryButton";
 import authApi from "./api/auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ErrorAlert from "./components/ErrorAlert";
 import { useHistory } from "react-router-dom";
 
@@ -12,6 +12,10 @@ export default function LoginPage(props) {
     const [loginErrors, setLoginErrors] = useState([]);
 
     let router = useHistory();
+
+    useEffect(() => {
+        document.title = "Login";
+    }, []);
 
     let attemptLogin = async () => {
         setLoading(true);

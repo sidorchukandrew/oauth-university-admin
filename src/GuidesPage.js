@@ -12,6 +12,7 @@ export default function GuidesPage(props) {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        document.title = "Guides";
         async function fetchData() {
             document.title = "Guides";
             setLoading(true);

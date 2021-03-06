@@ -14,13 +14,13 @@ export default function GuideDefaultPage() {
     const routeHistory = useHistory();
 
     useEffect(() => {
-        document.title = "Guide"
+        document.title = "Guides"
         async function fetchData() {
             setLoading(true);
             try {
                 let result = await guidesApi.getOne(id);
                 setGuide(result.data);
-                document.title = "Guide | " + result.data?.title;
+                document.title = "Guides | " + result.data?.title;
             } catch (error) {
                 console.log(error);
             } finally {
