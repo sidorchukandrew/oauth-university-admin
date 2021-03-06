@@ -3,6 +3,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import SettingsIcon from "@material-ui/icons/Settings";
 import { useState } from "react";
 import OAuthConfigDialog from "./OAuthConfigDialog";
+import DeleteIcon from "@material-ui/icons/Clear";
 
 export default function OAuthButtonGenerator(props) {
     const [showConfigDialog, setShowConfigDialog] = useState(false);
@@ -68,6 +69,9 @@ export default function OAuthButtonGenerator(props) {
                     onClick={() => setShowConfigDialog(true)}
                 >
                     <SettingsIcon style={{ fontSize: "18px" }} />
+                </span>
+                <span className="m-left-lg grey-text-6 hov-error-color">
+                    <DeleteIcon style={{ fontSize: "22px" }} onClick={() => props.onDelete(props.section)} />
                 </span>
             </div>
             <OAuthConfigDialog

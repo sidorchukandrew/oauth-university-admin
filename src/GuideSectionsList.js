@@ -106,6 +106,21 @@ export default function GuideSectionsList(props) {
         props.onChange(updatedSections);
     }
 
+    const handleDeleteSection = (sectionToDelete) => {
+        let updatedSections = JSON.parse(JSON.stringify(props.sections));
+        if (sectionToDelete.id) {
+            let indexToDelete = updatedSections.findIndex(draggableSection => draggableSection.body.id === sectionToDelete.id);
+            if (indexToDelete > -1) {
+                updatedSections[indexToDelete].body._destroy = 1;
+            }
+        } else {
+            updatedSections = props.sections.filter(draggableSection => {
+                return draggableSection !== sectionToDelete
+            });
+        }
+        props.onChange(updatedSections);
+    }
+
     return (
         <div>
             <DragDropContext onDragEnd={onDragEnd}>
@@ -116,34 +131,40 @@ export default function GuideSectionsList(props) {
                             ref={provided.innerRef}
                             style={getListStyle(snapshot.isDraggingOver)}
                         >
-                            {props.sections?.map((item, index) => (
-                                <Draggable key={item.draggableId} draggableId={item.draggableId} index={index}>
-                                    {(provided, snapshot) => (
-                                        <div
-                                            ref={provided.innerRef}
-                                            {...provided.draggableProps}
-                                            {...provided.dragHandleProps}
-                                            style={getItemStyle(
-                                                snapshot.isDragging,
-                                                provided.draggableProps.style
-                                            )}
-                                            className="d-flex align-center m-bottom-md"
-                                        >
-                                            <div className="font-xs m-right-lg d-flex align-center grey-text-5"
-                                                style={{ minWidth: "100px" }}
+                            {props.sections?.map((item, index) => {
+                                if (item.body._destroy === 1) {
+                                    return ""
+                                } else {
+                                    return (<Draggable key={item.draggableId} draggableId={item.draggableId} index={index}>
+                                        {(provided, snapshot) => (
+                                            <div
+                                                ref={provided.innerRef}
+                                                {...provided.draggableProps}
+                                                {...provided.dragHandleProps}
+                                                style={getItemStyle(
+                                                    snapshot.isDragging,
+                                                    provided.draggableProps.style
+                                                )}
+                                                className="d-flex align-center m-bottom-md"
                                             >
-                                                SECTION {index + 1}
+                                                <div className="font-xs m-right-lg d-flex align-center grey-text-5"
+                                                    style={{ minWidth: "100px" }}
+                                                >
+                                                    SECTION {index + 1}
+                                                </div>
+                                                <div className="flex-grow">
+                                                    <GuideSection
+                                                        section={item.body}
+                                                        onChange={handleEditSection}
+                                                        onDelete={handleDeleteSection}
+                                                    />
+                                                </div>
                                             </div>
-                                            <div className="flex-grow">
-                                                <GuideSection
-                                                    section={item.body}
-                                                    onChange={handleEditSection}
-                                                />
-                                            </div>
-                                        </div>
-                                    )}
-                                </Draggable>
-                            ))}
+                                        )}
+                                    </Draggable>
+                                    )
+                                }
+                            })}
                             {provided.placeholder}
                         </div>
                     )}

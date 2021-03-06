@@ -35,6 +35,10 @@ export default class GuidesApi {
                     baseSection.oauth_config_attributes = section.oauth_config;
                 }
 
+                if (section._destroy === 1) {
+                    baseSection._destroy = 1;
+                }
+
                 return baseSection;
             });
             delete updates.sections;

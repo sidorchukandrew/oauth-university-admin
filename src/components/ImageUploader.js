@@ -84,11 +84,13 @@ export default class ImageUploader extends React.Component {
                 style={{ height: "200px", minheight: "200px", maxHeight: "200px" }}
             />
 
-            <div className="d-flex justify-end">
-                <IconButton onClick={this.handleRemoveClick} >
-                    <DeleteIcon />
-                </IconButton>
-            </div>
+            {this.state.showImageActions ? (
+                <div className="d-flex justify-end">
+                    <IconButton onClick={this.handleRemoveClick} >
+                        <DeleteIcon />
+                    </IconButton>
+                </div>
+            ) : ""}
         </div>;
 
         let uploadButton = <div
