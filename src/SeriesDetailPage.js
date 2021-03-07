@@ -31,7 +31,7 @@ export default function SeriesDetailPage() {
                 setSeries(result.data);
                 setOriginalSeries(result.data);
             } catch (error) {
-                if (error.response.status === 401) {
+                if (error?.response?.status === 401) {
                     router.push("/login");
                 }
             }

@@ -5,11 +5,13 @@ import CreateGuidePanel from "./CreateGuidePanel";
 import GuidesList from "./GuidesList";
 import guidesApi from "./api/guides";
 import Loader from "react-loader-spinner";
+import { useHistory } from "react-router-dom";
 
 export default function GuidesPage(props) {
     const [allGuides, setAllGuides] = useState([]);
     const [showCreatePanel, setShowCreatePanel] = useState(false);
     const [loading, setLoading] = useState(false);
+    const router = useHistory();
 
     useEffect(() => {
         document.title = "Guides";
@@ -20,6 +22,9 @@ export default function GuidesPage(props) {
                 let result = await guidesApi.getAll();
                 setAllGuides(result.data);
             } catch (error) {
+                if (error?.response?.status === 401) {
+                    router.push("/login");
+                }
                 console.log(error);
             } finally {
                 setLoading(false);
