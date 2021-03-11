@@ -19,3 +19,9 @@
     padding: 4px;
     border-radius: 5px;
 }
+
+.markdown pre {
+    background-color: #f8f8fa;
+    border-radius: 5px;
+    padding:10px;
+}
