@@ -12,3 +12,10 @@
     color: #6c7280;
     font-size: 16px;
 }
+
+.markdown code {
+    color: #5f57ec;
+    background-color: #f8f8fa;
+    padding: 4px;
+    border-radius: 5px;
+}
