@@ -55,11 +55,15 @@ export default function OAuthButtonGenerator(props) {
                     </span>
                     ?
                     <span>
-                        client_id=
+                        {props.config?.client_id_param_name}=
                     </span>
                     &
                     <span>
-                        redirect_uri=
+                        {props.config?.redirect_uri_param_name}=
+                    </span>
+                                        &
+                    <span>
+                        {props.config?.scope_param_name}=
                     </span>
                 </div>
             </div>
