@@ -191,6 +191,10 @@ body {
     margin: 20px;
 }
 
+.m-top-lg {
+    margin-top: 20px;
+}
+
 .m-bottom-sm {
     margin-bottom: 5px;
 }
@@ -546,4 +550,12 @@ body {
 
 .full-height {
     height: 100vh;
+}
+
+.striped-bg:nth-child(odd) {
+    background-color:  #f4f5f7a2;
+}
+
+table {
+    border-collapse: collapse;
 }

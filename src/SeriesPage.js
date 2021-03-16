@@ -49,7 +49,11 @@ export default class Series extends React.Component {
         return (
             <div>
                 <div className="m-bottom-lg">
-                    <PageHeading title="Series" onActionClicked={this.openCreatePanel} />
+                    <PageHeading
+                        title="Series"
+                        onActionClicked={this.openCreatePanel}
+                        showActionButton
+                    />
                 </div>
 
                 <SeriesList />

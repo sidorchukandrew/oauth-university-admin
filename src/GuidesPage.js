@@ -67,6 +67,7 @@ export default function GuidesPage(props) {
             <PageHeading
                 title="Guides"
                 onActionClicked={() => handleToggleCreatePanel(true)}
+                showActionButton
             />
 
             {allGuides.length > 0 ? <GuidesList guides={allGuides} onDeleteGuide={handleDeleteGuide} /> : noContent}
