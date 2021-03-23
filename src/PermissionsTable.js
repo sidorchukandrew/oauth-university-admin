@@ -35,7 +35,7 @@ export default function PermissionsTable(props) {
         let permissions = permissionCategory.permissions?.map(permission => {
             return (
                 <tr key={permission} className="striped-bg">
-                    <td className="grey-text-6 font-sm">
+                    <td className="grey-text-6 font-sm p-md">
                         <RowPermissionLabel label={permission} />
                     </td>
                     {props.roles?.map(role => (
